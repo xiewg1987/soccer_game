@@ -1,6 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://cyqds2j1uat2h"]
+[gd_scene load_steps=9 format=3 uid="uid://cyqds2j1uat2h"]
 
 [ext_resource type="Texture2D" uid="uid://t8dcic6ia65i" path="res://assets/art/characters/soccer-player.png" id="1_8afob"]
+[ext_resource type="Script" uid="uid://cil54ydu8cu7d" path="res://scenes/player/player.gd" id="1_dovo2"]
+
+[sub_resource type="Animation" id="Animation_dovo2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_8afob"]
 resource_name = "idle"
@@ -20,8 +36,28 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3]
 }
 
-[sub_resource type="Animation" id="Animation_dovo2"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_gmlin"]
+resource_name = "run"
+length = 0.6
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_lvxji"]
+resource_name = "tackle"
+length = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -32,13 +68,15 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [30]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dovo2"]
 _data = {
 &"RESET": SubResource("Animation_dovo2"),
-&"idle": SubResource("Animation_8afob")
+&"idle": SubResource("Animation_8afob"),
+&"run": SubResource("Animation_gmlin"),
+&"tackle": SubResource("Animation_lvxji")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8afob"]
@@ -46,8 +84,10 @@ radius = 4.0
 height = 18.0
 
 [node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_dovo2")
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 texture = ExtResource("1_8afob")
 centered = false
 offset = Vector2(-16, -32)
@@ -55,6 +95,7 @@ hframes = 6
 vframes = 13
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_dovo2")
 }
