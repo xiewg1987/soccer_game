@@ -1,6 +1,5 @@
 class_name PlayerStateTackling extends PlayerState
 
-
 const DURATION_TACKLE := 200
 
 var time_start_tackle := Time.get_ticks_msec()
@@ -12,4 +11,4 @@ func _enter_tree() -> void:
 
 func _process(_delta: float) -> void:
 	if Time.get_ticks_msec() - time_start_tackle > DURATION_TACKLE:
-		emit_state_transition_requested(Player.State.MOVING)
+		emit_state_transition_requested(Player.State.RECOVERING)
