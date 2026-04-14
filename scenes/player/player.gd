@@ -2,15 +2,17 @@ class_name Player extends CharacterBody2D
 
 
 enum ControlScheme { CPU, P1, P2}
-enum State { MOVING, TACKLING, RECOVERING}
+enum State { MOVING, TACKLING, RECOVERING, PREPPING_SHOT, SHOTING}
 
-
+@export var ball: Ball
+@export var power: float
+@export var speed: float = 80.0
 @export var control_scheme: ControlScheme
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var player_sprite: Sprite2D = %PlayerSprite
 
-
+var heading: Vector2 = Vector2.ZERO
 var current_state: PlayerState = null
 var state_factory := PlayerStateFactory.new()
 
@@ -36,6 +38,7 @@ func switch_state(state: State) -> void:
 
 func file_sprite() -> void:
 	var direction := KeyUnits.get_input_vector(control_scheme)
+	heading = direction
 	if direction.x > 0:
 		player_sprite.flip_h = false
 	elif direction.x < 0:
@@ -48,3 +51,7 @@ func set_movement_animation() -> void:
 		animation_player.play("run")
 	else :
 		animation_player.play("idle")
+
+
+func has_ball() -> bool:
+	return ball.carrier == self
