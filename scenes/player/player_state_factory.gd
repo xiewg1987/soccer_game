@@ -1,4 +1,4 @@
-class_name PlayerStateFactory extends Node
+class_name PlayerStateFactory
 
 
 var states: Dictionary
@@ -13,5 +13,5 @@ func _init() -> void:
 
 
 func get_fresh_state(state: Player.State) -> PlayerState:
-	assert(states.has(state), "%s 状态不存在" % state)
+	assert(states.has(state), "玩家 %s 状态不存在" % state)
 	return states.get(state).new()

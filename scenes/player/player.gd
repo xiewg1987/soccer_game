@@ -4,6 +4,7 @@ class_name Player extends CharacterBody2D
 enum ControlScheme { CPU, P1, P2}
 enum State { MOVING, TACKLING, RECOVERING}
 
+
 @export var control_scheme: ControlScheme
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
@@ -15,7 +16,7 @@ var state_factory := PlayerStateFactory.new()
 
 
 func _ready() -> void:
-	switch_state(Player.State.MOVING)
+	switch_state(State.MOVING)
 
 
 func _physics_process(_delta: float) -> void:
@@ -29,7 +30,7 @@ func switch_state(state: State) -> void:
 	current_state = state_factory.get_fresh_state(state)
 	current_state.setup(self, animation_player)
 	current_state.state_transition_requested.connect(switch_state)
-	current_state.name = "PlayerStateMachine: %s" % state
+	current_state.name = "玩家状态机: %s" % state
 	call_deferred("add_child", current_state)
 
 
