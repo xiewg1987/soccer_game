@@ -23,4 +23,7 @@ func _process(delta: float) -> void:
 		var bonus := ease(ease_time, EASE_REWARD_FACTOR)
 		var shop_power: float = palyer.power * (1 + bonus)
 		shop_direction = shop_direction.normalized()
-		print(shop_power, shop_direction)
+		var context_state_data = PlayerStateData.new()
+		context_state_data.shop_direction = shop_direction
+		context_state_data.shop_power = shop_power
+		emit_state_transition_requested(Player.State.SHOTING, context_state_data)

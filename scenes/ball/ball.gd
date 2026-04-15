@@ -5,6 +5,7 @@ enum State {CARRIED, FREEFOEM, SHOT}
 
 @onready var player_detection_area: Area2D = %PlayerDetectionArea
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var ball_sprite: Sprite2D = %BallSprite
 
 
 var carrier: Player = null
@@ -25,3 +26,8 @@ func switch_state(state: State) -> void:
 	current_state.state_transition_requested.connect(switch_state)
 	current_state.name = "足球状态机: %s" % state
 	call_deferred("add_child", current_state)
+
+func shoot(shot_velocity: Vector2) -> void:
+	carrier = null
+	velocity = shot_velocity
+	switch_state(State.SHOT)
