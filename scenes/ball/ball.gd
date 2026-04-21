@@ -36,3 +36,9 @@ func shoot(shot_velocity: Vector2) -> void:
 	carrier = null
 	velocity = shot_velocity
 	switch_state(State.SHOT)
+
+
+func pass_to(pass_velocity: Vector2) -> void:
+	carrier = null
+	velocity = pass_velocity
+	switch_state(State.FREEFOEM)

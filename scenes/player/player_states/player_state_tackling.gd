@@ -7,13 +7,13 @@ var is_tackle_complete := false
 var time_finish_tackle := Time.get_ticks_msec()
 
 func _enter_tree() -> void:
-	palyer.animation_player.play("tackle")
+	player.animation_player.play("tackle")
 
 
 func _process(delta: float) -> void:
 	if not is_tackle_complete:
-		palyer.velocity = palyer.velocity.move_toward(Vector2.ZERO, delta * GROUND_FRICTION)
-		if Vector2.ZERO == palyer.velocity:
+		player.velocity = player.velocity.move_toward(Vector2.ZERO, delta * GROUND_FRICTION)
+		if Vector2.ZERO == player.velocity:
 			is_tackle_complete = true
 			time_finish_tackle = Time.get_ticks_msec()
 	elif Time.get_ticks_msec() - time_finish_tackle > DURATION_PRIOR_RECOVERY:

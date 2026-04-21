@@ -4,11 +4,11 @@ class_name PlayerState extends Node
 signal state_transition_requested(new_state: Player.State, state_data: PlayerStateData)
 
 
-var palyer: Player = null
+var player: Player = null
 var state_data: PlayerStateData = PlayerStateData.new()
 
 func setup(centext_player: Player, centext_state_data: PlayerStateData) -> void:
-	palyer = centext_player
+	player = centext_player
 	state_data = centext_state_data
 
 

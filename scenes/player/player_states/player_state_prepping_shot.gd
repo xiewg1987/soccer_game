@@ -10,19 +10,19 @@ var shop_direction := Vector2.ZERO
 var time_start_shot := Time.get_ticks_msec()
 
 func _enter_tree() -> void:
-	palyer.animation_player.play("prep_kick")
-	palyer.velocity = Vector2.ZERO
+	player.animation_player.play("prep_kick")
+	player.velocity = Vector2.ZERO
 	time_start_shot = Time.get_ticks_msec()
-	shop_direction = palyer.heading
+	shop_direction = player.heading
 
 
 func _process(delta: float) -> void:
-	shop_direction += KeyUnits.get_input_vector(palyer.control_scheme) * delta
-	if KeyUnits.is_action_just_released(palyer.control_scheme, KeyUnits.Action.SHOOT):
+	shop_direction += KeyUnits.get_input_vector(player.control_scheme) * delta
+	if KeyUnits.is_action_just_released(player.control_scheme, KeyUnits.Action.SHOOT):
 		var duration_press = clampf(Time.get_ticks_msec() - time_start_shot, 0.0, DURATION_MAX_BONUS)
 		var ease_time: float = duration_press / DURATION_MAX_BONUS
 		var bonus := ease(ease_time, EASE_REWARD_FACTOR)
-		var shop_power: float = palyer.power * (1 + bonus)
+		var shop_power: float = player.power * (1 + bonus)
 		shop_direction = shop_direction.normalized()
 		var context_state_data = PlayerStateData.new()
 		context_state_data.shop_direction = shop_direction
