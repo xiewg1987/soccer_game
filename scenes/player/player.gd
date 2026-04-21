@@ -38,7 +38,8 @@ func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.ne
 
 func file_sprite() -> void:
 	var direction := KeyUnits.get_input_vector(control_scheme)
-	heading = direction
+	if direction != Vector2.ZERO:
+		heading = direction
 	if direction.x > 0:
 		player_sprite.flip_h = false
 	elif direction.x < 0:

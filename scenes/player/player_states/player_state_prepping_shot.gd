@@ -13,6 +13,7 @@ func _enter_tree() -> void:
 	animation_player.play("prep_kick")
 	palyer.velocity = Vector2.ZERO
 	time_start_shot = Time.get_ticks_msec()
+	shop_direction = palyer.heading
 
 
 func _process(delta: float) -> void:

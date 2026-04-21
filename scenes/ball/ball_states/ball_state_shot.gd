@@ -1,7 +1,7 @@
 class_name BallStateShot extends BallState
 
 const DURATION_SHOP := 1000
-const SHOP_HEIGHT := 5.0
+const SHOP_HEIGHT := 30.0
 const SHOP_SPRITE_SCALE := 0.8
 
 
@@ -11,7 +11,7 @@ var time_since_shop := Time.get_ticks_msec()
 func _enter_tree() -> void:
 	time_since_shop = Time.get_ticks_msec()
 	set_ball_animation_from_velocity()
-	ball.ball_sprite.position = Vector2.UP * SHOP_HEIGHT
+	ball.height = SHOP_HEIGHT
 	ball.ball_sprite.scale.y = SHOP_SPRITE_SCALE
 
 
