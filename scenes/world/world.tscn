@@ -38,5 +38,10 @@ position = Vector2(100, 88)
 ball = NodePath("../Ball")
 control_scheme = 2
 
+[node name="Player3" parent="ActorsContainer" node_paths=PackedStringArray("ball") instance=ExtResource("4_6m72w")]
+position = Vector2(137, 149)
+ball = NodePath("../Ball")
+control_scheme = 2
+
 [node name="Ball" parent="ActorsContainer" instance=ExtResource("5_v5dby")]
 position = Vector2(150, 79)

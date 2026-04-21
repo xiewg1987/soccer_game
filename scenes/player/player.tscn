@@ -156,8 +156,6 @@ height = 18.0
 collision_layer = 2
 script = ExtResource("1_dovo2")
 power = 70.0
-speed = null
-control_scheme = null
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -178,3 +176,12 @@ autoplay = "idle"
 position = Vector2(0, -3)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_8afob")
+
+[node name="TeammateDetectioArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TeammateDetectioArea"]
+polygon = PackedVector2Array(0, -40, 280, -150, 330, -100, 330, 100, 280, 150, 0, 40)

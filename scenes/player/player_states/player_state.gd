@@ -6,12 +6,10 @@ signal state_transition_requested(new_state: Player.State, state_data: PlayerSta
 
 var palyer: Player = null
 var state_data: PlayerStateData = PlayerStateData.new()
-var animation_player: AnimationPlayer
 
-func setup(centext_player: Player, centext_state_data: PlayerStateData, centext_animation_player: AnimationPlayer) -> void:
+func setup(centext_player: Player, centext_state_data: PlayerStateData) -> void:
 	palyer = centext_player
 	state_data = centext_state_data
-	animation_player = centext_animation_player
 
 
 func animation_complete() -> void:

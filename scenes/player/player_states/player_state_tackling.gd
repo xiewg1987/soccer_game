@@ -7,7 +7,7 @@ var is_tackle_complete := false
 var time_finish_tackle := Time.get_ticks_msec()
 
 func _enter_tree() -> void:
-	animation_player.play("tackle")
+	palyer.animation_player.play("tackle")
 
 
 func _process(delta: float) -> void:

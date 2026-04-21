@@ -2,7 +2,7 @@ class_name PlayerStateShoting extends PlayerState
 
 
 func _enter_tree() -> void:
-	animation_player.play("kick")
+	palyer.animation_player.play("kick")
 
 
 func animation_complete() -> void:
