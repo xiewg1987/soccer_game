@@ -17,6 +17,7 @@ const CONTROL_SCHEME_MAP: Dictionary = {
 
 @onready var player_sprite: Sprite2D = %PlayerSprite
 @onready var control_sprite: Sprite2D = %ControlSprite
+@onready var ball_detection_area: Area2D = %BallDetectionArea
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var teammate_detectio_area: Area2D = %TeammateDetectioArea
 

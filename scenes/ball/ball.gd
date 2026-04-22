@@ -3,14 +3,14 @@ class_name Ball extends AnimatableBody2D
 enum State {CARRIED, FREEFOEM, SHOT}
 
 const BOUNCINESS := 0.8
-
+const DISTANCE_HIGH_PASS := 130
 
 @export var friction_air: float
 @export var friction_ground: float
 
+@onready var ball_sprite: Sprite2D = %BallSprite
 @onready var player_detection_area: Area2D = %PlayerDetectionArea
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
-@onready var ball_sprite: Sprite2D = %BallSprite
 
 
 var carrier: Player = null
@@ -33,7 +33,7 @@ func switch_state(state: State) -> void:
 	if current_state != null:
 		current_state.queue_free()
 	current_state = state_factory.get_fresh_state(state)
-	current_state.setup(self, player_detection_area,animation_player, carrier)
+	current_state.setup(self,animation_player, carrier)
 	current_state.state_transition_requested.connect(switch_state)
 	current_state.name = "足球状态机: %s" % state
 	call_deferred("add_child", current_state)
@@ -50,6 +50,8 @@ func pass_to(destiantion: Vector2) -> void:
 	var intensity = sqrt(2 * distance * friction_ground)
 	carrier = null
 	velocity = direction * intensity
+	if distance > DISTANCE_HIGH_PASS :
+		height_velocity = BallState.GRAVITY * distance / (1.8 * intensity)
 	switch_state(State.FREEFOEM)
 
 

@@ -63,6 +63,7 @@ centered = false
 [node name="StaticBody2D" type="StaticBody2D" parent="ActorsContainer/PitchObject/TopWall"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ActorsContainer/PitchObject/TopWall/StaticBody2D"]
+visible = false
 polygon = PackedVector2Array(0, 116, 13, 0, 739, 0, 752, 116, 740, 116, 728, 14, 25, 14, 12, 116)
 
 [node name="BottonWall" type="Sprite2D" parent="ActorsContainer/PitchObject"]
@@ -75,6 +76,7 @@ offset = Vector2(0, -12)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ActorsContainer/PitchObject/BottonWall/StaticBody2D"]
+visible = false
 position = Vector2(401, -3.5)
 shape = SubResource("RectangleShape2D_1yooq")
 
@@ -88,6 +90,7 @@ offset = Vector2(0, -14)
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ActorsContainer/PitchObject/LeftWall/StaticBody2D"]
+visible = false
 polygon = PackedVector2Array(1, 120, 15, -2, 25, -2, 12, 120)
 
 [node name="RightWall" type="Sprite2D" parent="ActorsContainer/PitchObject"]
@@ -101,6 +104,7 @@ offset = Vector2(0, -14)
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ActorsContainer/PitchObject/RightWall/StaticBody2D"]
+visible = false
 polygon = PackedVector2Array(1, 120, 15, -2, 25, -2, 12, 120)
 
 [node name="Player" parent="ActorsContainer" node_paths=PackedStringArray("ball") instance=ExtResource("4_6m72w")]
