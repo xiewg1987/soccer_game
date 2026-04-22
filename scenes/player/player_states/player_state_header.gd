@@ -1,0 +1,1 @@
+class_name PlayerStateHeader extends PlayerState

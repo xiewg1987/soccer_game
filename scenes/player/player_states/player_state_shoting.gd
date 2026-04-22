@@ -2,7 +2,7 @@ class_name PlayerStateShoting extends PlayerState
 
 
 func _enter_tree() -> void:
-	player.animation_player.play("kick")
+	animation_player.play("kick")
 
 
 func animation_complete() -> void:
@@ -15,4 +15,4 @@ func animation_complete() -> void:
 
 func shoot_ball() -> void:
 	print("射门角度 %s 强度 %s" % [state_data.shop_direction, state_data.shop_power])
-	player.ball.shoot(state_data.shop_direction *  state_data.shop_power)
+	ball.shoot(state_data.shop_direction *  state_data.shop_power)

@@ -10,7 +10,7 @@ var shop_direction := Vector2.ZERO
 var time_start_shot := Time.get_ticks_msec()
 
 func _enter_tree() -> void:
-	player.animation_player.play("prep_kick")
+	animation_player.play("prep_kick")
 	player.velocity = Vector2.ZERO
 	time_start_shot = Time.get_ticks_msec()
 	shop_direction = player.heading

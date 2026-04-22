@@ -20,12 +20,12 @@ func _process(delta: float) -> void:
 		if carrier.velocity.x != 0:
 			vx = cos(dribble_time * DRIBBLE_FREQUENCY) * DRIBBLE_INTENSITY
 		if carrier.heading.x >= 0:
-			animation_player.play("roll")
-			animation_player.advance(0)
+			ball.animation_player.play("roll")
+			ball.animation_player.advance(0)
 		else :
-			animation_player.play_backwards("roll")
-			animation_player.advance(0)
+			ball.animation_player.play_backwards("roll")
+			ball.animation_player.advance(0)
 	else :
-		animation_player.play("idle")
+		ball.animation_player.play("idle")
 	process_gravity(delta)
 	ball.position = carrier.position + Vector2(offset_x + vx, offset_y)

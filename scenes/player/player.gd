@@ -1,7 +1,22 @@
 class_name Player extends CharacterBody2D
 
-enum ControlScheme { CPU, P1, P2}
-enum State { MOVING, PASSING, TACKLING, RECOVERING, PREPPING_SHOT, SHOTING}
+enum ControlScheme { 
+		CPU, 
+		P1,
+		P2
+	}
+
+enum State { 
+		MOVING,
+		PASSING, 
+		TACKLING, 
+		RECOVERING, 
+		PREPPING_SHOT, 
+		SHOTING,
+		HEADER,
+		VOLLRY_KICK,
+		BICYCLE_KICK
+	}
 
 
 const CONTROL_SCHEME_MAP: Dictionary = {

@@ -33,7 +33,7 @@ func switch_state(state: State) -> void:
 	if current_state != null:
 		current_state.queue_free()
 	current_state = state_factory.get_fresh_state(state)
-	current_state.setup(self,animation_player, carrier)
+	current_state.setup(self, carrier)
 	current_state.state_transition_requested.connect(switch_state)
 	current_state.name = "足球状态机: %s" % state
 	call_deferred("add_child", current_state)
@@ -57,3 +57,7 @@ func pass_to(destiantion: Vector2) -> void:
 
 func stop() -> void:
 	velocity = Vector2.ZERO
+
+
+func is_freeform() -> bool:
+	return current_state != null and current_state is BallStateFreeform
