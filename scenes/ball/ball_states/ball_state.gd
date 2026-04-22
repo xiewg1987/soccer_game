@@ -2,7 +2,6 @@ class_name BallState extends Node
 
 signal state_transition_requested(new_state: Ball.State)
 
-
 const GRAVITY := 10.0
 
 var ball: Ball = null
@@ -39,6 +38,12 @@ func process_gravity(delta: float, bounciness: float = 0.0) -> void:
 				ball.height_velocity = -ball.height_velocity * bounciness
 				ball.velocity *= bounciness
 
+
+func move_and_bounce(delta: float) -> void:
+	var collision: KinematicCollision2D = ball.move_and_collide(ball.velocity * delta)
+	if collision != null:
+		ball.velocity = ball.velocity.bounce(collision.get_normal()) * ball.BOUNCINESS
+		ball.switch_state(Ball.State.FREEFOEM)
 
 func emit_state_transition_requested(new_state: Ball.State) -> void:
 	state_transition_requested.emit(new_state)
