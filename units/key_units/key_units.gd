@@ -23,7 +23,8 @@ const ACTIONS_MAP: Dictionary = {
 
 
 func get_input_vector(scheme: Player.ControlScheme) -> Vector2:
-	var map: Dictionary = ACTIONS_MAP[scheme]
+	if scheme == Player.ControlScheme.CPU: return Vector2.ZERO
+	var map: Dictionary = ACTIONS_MAP.get(scheme)
 	return Input.get_vector(map[Action.LEFT], map[Action.RIGHT], map[Action.UP], map[Action.DOWN])
 
 

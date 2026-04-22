@@ -1,8 +1,14 @@
 class_name Player extends CharacterBody2D
 
-
 enum ControlScheme { CPU, P1, P2}
 enum State { MOVING, PASSING, TACKLING, RECOVERING, PREPPING_SHOT, SHOTING}
+
+
+const CONTROL_SCHEME_MAP: Dictionary = {
+	ControlScheme.CPU: preload("uid://dhc7dno5yhs0s"),
+	ControlScheme.P1: preload("uid://d0xglgnndh63e") ,
+	ControlScheme.P2: preload("uid://cw6lyibgglni3")
+}
 
 @export var ball: Ball
 @export var power: float
@@ -10,8 +16,10 @@ enum State { MOVING, PASSING, TACKLING, RECOVERING, PREPPING_SHOT, SHOTING}
 @export var control_scheme: ControlScheme
 
 @onready var player_sprite: Sprite2D = %PlayerSprite
+@onready var control_sprite: Sprite2D = %ControlSprite
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var teammate_detectio_area: Area2D = %TeammateDetectioArea
+
 
 var heading: Vector2 = Vector2.ZERO
 var current_state: PlayerState = null
@@ -19,12 +27,14 @@ var state_factory := PlayerStateFactory.new()
 
 
 func _ready() -> void:
+	set_control_sprite()
 	switch_state(State.MOVING)
 
 
 func _physics_process(_delta: float) -> void:
 	file_sprite()
 	move_and_slide()
+	set_sprite_visiblity()
 
 
 func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
@@ -58,6 +68,12 @@ func set_movement_animation() -> void:
 func has_ball() -> bool:
 	return ball.carrier == self
 
+
+func set_control_sprite() -> void:
+	control_sprite.texture = CONTROL_SCHEME_MAP.get(control_scheme)
+
+func set_sprite_visiblity() -> void:
+	control_sprite.visible = has_ball() or not control_scheme == ControlScheme.CPU
 
 func animation_complete() -> void:
 	if current_state != null:

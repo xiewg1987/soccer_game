@@ -8,12 +8,12 @@ func _enter_tree() -> void:
 
 func animation_complete() -> void:
 	var pass_target := find_teammate_in_view()
-	print(pass_target)
-	var target := Vector2(10, 10)
-	var pass_direction = player.ball.position.direction_to(target)
-	var pass_distance = player.ball.position.distance_to(target)
-	var pass_velocity = sqrt(2 * pass_distance * BallStateFreeform.FRICTION_GROUND)
-	player.ball.pass_to(pass_direction * pass_velocity)
+	var target := Vector2.ZERO
+	if pass_target == null:
+		target = player.ball.position + player.heading * player.speed
+	else :
+		target = pass_target.position + pass_target.velocity
+	player.ball.pass_to(target)
 	emit_state_transition_requested(Player.State.MOVING)
 
 
