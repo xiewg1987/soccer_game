@@ -8,6 +8,7 @@ func _enter_tree() -> void:
 func _on_player_entered(body: Node2D) -> void:
 	if not body is Player: return
 	ball.carrier = body
+	body.control_ball()
 	emit_state_transition_requested(Ball.State.CARRIED)
 
 

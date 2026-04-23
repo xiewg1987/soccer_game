@@ -6,24 +6,40 @@ enum ControlScheme {
 		P2
 	}
 
-enum State { 
-		MOVING,
-		PASSING, 
-		TACKLING, 
-		RECOVERING, 
-		PREPPING_SHOT, 
-		SHOTING,
+enum Role {
+	GOALIE,
+	DEFENSE,
+	MIDFIELD,
+	OFFENSE,
+}
+
+enum SkinColor {
+	LIGHT,
+	MEDIUM,
+	DARK,
+}
+
+enum State {
 		HEADER,
+		MOVING,
+		PASSING,
+		SHOTING,
+		TACKLING,
+		RECOVERING,
 		VOLLRY_KICK,
-		BICYCLE_KICK
+		BICYCLE_KICK,
+		CHEST_CONTROL,
+		PREPPING_SHOT,
 	}
 
 const GRAVITY := 8.0
+const BALL_CONTROL_HEIGHT_MAX := 10.0
 const CONTROL_SCHEME_MAP: Dictionary = {
 	ControlScheme.CPU: preload("uid://dhc7dno5yhs0s"),
 	ControlScheme.P1: preload("uid://d0xglgnndh63e") ,
 	ControlScheme.P2: preload("uid://cw6lyibgglni3")
 }
+
 
 @export var ball: Ball
 @export var power: float
@@ -91,7 +107,12 @@ func process_gravity(delta: float) -> void:
 		height += height_velocity
 		if height < 0: height = 0
 	player_sprite.position = Vector2.UP * height
-			
+
+
+func control_ball() -> void:
+	if ball.height > BALL_CONTROL_HEIGHT_MAX:
+		switch_state(State.CHEST_CONTROL)
+
 
 func has_ball() -> bool:
 	return ball.carrier == self
