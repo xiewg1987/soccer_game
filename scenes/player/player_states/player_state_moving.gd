@@ -22,6 +22,14 @@ func handle_human_movement() -> void:
 			emit_state_transition_requested(Player.State.PREPPING_SHOT)
 	elif ball.can_air_interact() and action_shoot :
 		if player.velocity == Vector2.ZERO:
-			pass
+			if is_facing_target_goal():
+				emit_state_transition_requested(Player.State.VOLLRY_KICK)
+			else :
+				emit_state_transition_requested(player.State.BICYCLE_KICK)
 		else :
 			emit_state_transition_requested(Player.State.HEADER)
+
+
+func is_facing_target_goal() -> bool:
+	var direction_to_target_goal := player.position.direction_to(target_goal.position)
+	return player.heading.dot(direction_to_target_goal) > 0

@@ -258,6 +258,7 @@ height = 20.0
 collision_layer = 2
 script = ExtResource("1_dovo2")
 power = 150.0
+speed = 80.0
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true

@@ -5,6 +5,9 @@ const HEIGHT_START := 0.1
 const HEIGHT_VELOCITY := 1.5
 
 
+var air_connect_min_height: float = 10.0
+var air_connect_max_height: float = 30.0
+
 func _enter_tree() -> void:
 	animation_player.play("header_kick")
 	player.height = HEIGHT_START
@@ -18,5 +21,5 @@ func _process(_delta: float) -> void:
 
 
 func on_ball_entered(contact_ball: Ball) -> void:
-	if contact_ball.can_air_connect():
+	if contact_ball.can_air_connect(air_connect_min_height, air_connect_max_height):
 		contact_ball.shoot(player.velocity.normalized() * player.power * BONUS_POWER)

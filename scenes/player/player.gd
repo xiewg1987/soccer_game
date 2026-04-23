@@ -27,7 +27,9 @@ const CONTROL_SCHEME_MAP: Dictionary = {
 
 @export var ball: Ball
 @export var power: float
-@export var speed: float = 80.0
+@export var speed: float
+@export var own_goal: Goal
+@export var target_goal: Goal
 @export var control_scheme: ControlScheme
 
 @onready var player_sprite: Sprite2D = %PlayerSprite

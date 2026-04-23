@@ -48,3 +48,15 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopFrame"]
 shape = SubResource("RectangleShape2D_0ivff")
 debug_color = Color(0.93333334, 0.13725491, 0.5529412, 1)
+
+[node name="Targets" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="TopTarget" type="Node2D" parent="Targets"]
+position = Vector2(22, -55)
+
+[node name="MiddleTarget" type="Node2D" parent="Targets"]
+position = Vector2(22, -35)
+
+[node name="BottonTarget" type="Node2D" parent="Targets"]
+position = Vector2(22, -15)
