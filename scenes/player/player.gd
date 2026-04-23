@@ -18,7 +18,7 @@ enum State {
 		BICYCLE_KICK
 	}
 
-
+const GRAVITY := 8.0
 const CONTROL_SCHEME_MAP: Dictionary = {
 	ControlScheme.CPU: preload("uid://dhc7dno5yhs0s"),
 	ControlScheme.P1: preload("uid://d0xglgnndh63e") ,
@@ -36,7 +36,8 @@ const CONTROL_SCHEME_MAP: Dictionary = {
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var teammate_detectio_area: Area2D = %TeammateDetectioArea
 
-
+var height := 0.0
+var height_velocity := 0.0
 var heading: Vector2 = Vector2.ZERO
 var current_state: PlayerState = null
 var state_factory := PlayerStateFactory.new()
@@ -47,9 +48,10 @@ func _ready() -> void:
 	switch_state(State.MOVING)
 
 
-func _physics_process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	file_sprite()
 	move_and_slide()
+	process_gravity(delta)
 	set_sprite_visiblity()
 
 
@@ -81,6 +83,14 @@ func set_movement_animation() -> void:
 		animation_player.play("idle")
 
 
+func process_gravity(delta: float) -> void:
+	if height > 0:
+		height_velocity -= GRAVITY * delta
+		height += height_velocity
+		if height < 0: height = 0
+	player_sprite.position = Vector2.UP * height
+			
+
 func has_ball() -> bool:
 	return ball.carrier == self
 
@@ -88,8 +98,10 @@ func has_ball() -> bool:
 func set_control_sprite() -> void:
 	control_sprite.texture = CONTROL_SCHEME_MAP.get(control_scheme)
 
+
 func set_sprite_visiblity() -> void:
 	control_sprite.visible = has_ball() or not control_scheme == ControlScheme.CPU
+
 
 func animation_complete() -> void:
 	if current_state != null:

@@ -5,8 +5,11 @@ enum State {CARRIED, FREEFOEM, SHOT}
 const BOUNCINESS := 0.8
 const DISTANCE_HIGH_PASS := 130
 
+
 @export var friction_air: float
 @export var friction_ground: float
+@export var air_connect_min_height: float
+@export var air_connect_max_height: float
 
 @onready var ball_sprite: Sprite2D = %BallSprite
 @onready var player_detection_area: Area2D = %PlayerDetectionArea
@@ -59,5 +62,9 @@ func stop() -> void:
 	velocity = Vector2.ZERO
 
 
-func is_freeform() -> bool:
-	return current_state != null and current_state is BallStateFreeform
+func can_air_interact() -> bool:
+	return current_state != null and current_state.can_air_interact()
+
+
+func can_air_connect() -> bool:
+	return height >= air_connect_min_height and height <= air_connect_max_height
