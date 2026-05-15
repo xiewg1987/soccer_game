@@ -40,7 +40,6 @@ const CONTROL_SCHEME_MAP: Dictionary = {
 	ControlScheme.P2: preload("uid://cw6lyibgglni3")
 }
 
-
 @export var ball: Ball
 @export var power: float
 @export var speed: float

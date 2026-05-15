@@ -14,3 +14,4 @@ func _process(_delta: float) -> void:
 	else :
 		position = ball.carrier.position + ball.carrier.heading * DISTANCE_TARGET
 		position_smoothing_speed =  SMOOTHING_BALL_CARRIED
+		
