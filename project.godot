@@ -18,6 +18,7 @@ config/icon="uid://bykcfjyxr32fl"
 [autoload]
 
 KeyUnits="*res://units/key_units/key_units.gd"
+DataLoader="*res://units/data_loader/data_loader.gd"
 
 [display]
 
