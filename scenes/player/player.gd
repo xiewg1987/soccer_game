@@ -54,7 +54,10 @@ const CONTROL_SCHEME_MAP: Dictionary = {
 @onready var teammate_detectio_area: Area2D = %TeammateDetectioArea
 
 var height := 0.0
+var full_name := ""
+var role := Role.MIDFIELD
 var height_velocity := 0.0
+var skin_color := SkinColor.MEDIUM
 var heading: Vector2 = Vector2.ZERO
 var current_state: PlayerState = null
 var state_factory := PlayerStateFactory.new()
@@ -72,6 +75,19 @@ func _process(delta: float) -> void:
 	set_sprite_visiblity()
 
 
+func initialize(context_data: Dictionary) -> void:
+	position = context_data.position
+	ball = context_data.ball
+	own_goal = context_data.own_goal
+	target_goal = context_data.target_goal
+	speed = context_data.player_data.speed
+	power = context_data.player_data.power
+	role = context_data.player_data.role
+	skin_color = context_data.player_data.skin_color
+	full_name = context_data.player_data.full_name
+	heading = Vector2.LEFT if target_goal.position.x < position.x else Vector2.RIGHT
+
+
 func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
 	if current_state != null:
 		current_state.queue_free()
@@ -86,9 +102,9 @@ func file_sprite() -> void:
 	var direction := KeyUnits.get_input_vector(control_scheme)
 	if direction != Vector2.ZERO:
 		heading = direction
-	if direction.x > 0:
+	if heading.x > 0:
 		player_sprite.flip_h = false
-	elif direction.x < 0:
+	elif heading.x < 0:
 		player_sprite.flip_h = true
 
 
