@@ -34,6 +34,7 @@ enum State {
 
 const GRAVITY := 8.0
 const BALL_CONTROL_HEIGHT_MAX := 10.0
+const COUNTRIES := ["DEFAULT", "FRANCE", "ARGENTINA", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "USA", "CANADA"]
 const CONTROL_SCHEME_MAP: Dictionary = {
 	ControlScheme.CPU: preload("uid://dhc7dno5yhs0s"),
 	ControlScheme.P1: preload("uid://d0xglgnndh63e") ,
@@ -55,6 +56,7 @@ const CONTROL_SCHEME_MAP: Dictionary = {
 
 var height := 0.0
 var full_name := ""
+var country := "DEFAULT"
 var role := Role.MIDFIELD
 var height_velocity := 0.0
 var skin_color := SkinColor.MEDIUM
@@ -66,6 +68,7 @@ var state_factory := PlayerStateFactory.new()
 func _ready() -> void:
 	set_control_sprite()
 	switch_state(State.MOVING)
+	set_shader_properties()
 
 
 func _process(delta: float) -> void:
@@ -75,16 +78,22 @@ func _process(delta: float) -> void:
 	set_sprite_visiblity()
 
 
+func set_shader_properties() -> void:
+	player_sprite.material.set_shader_parameter("team_color", skin_color)
+	player_sprite.material.set_shader_parameter("skin_color", max(COUNTRIES.find(country), 0))
+
+
 func initialize(context_data: Dictionary) -> void:
-	position = context_data.position
 	ball = context_data.ball
+	country = context_data.country
 	own_goal = context_data.own_goal
+	position = context_data.position
+	role = context_data.player_data.role
 	target_goal = context_data.target_goal
 	speed = context_data.player_data.speed
 	power = context_data.player_data.power
-	role = context_data.player_data.role
-	skin_color = context_data.player_data.skin_color
 	full_name = context_data.player_data.full_name
+	skin_color = context_data.player_data.skin_color
 	heading = Vector2.LEFT if target_goal.position.x < position.x else Vector2.RIGHT
 
 

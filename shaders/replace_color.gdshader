@@ -1,7 +1,9 @@
 shader_type canvas_item;
 
 uniform sampler2D team_palette;
+uniform sampler2D team_skin_palette;
 uniform int team_color;
+uniform int skin_color;
 
 vec2 px_to_vu(ivec2 pos, ivec2 tex_size) {
 	return vec2(
@@ -10,12 +12,29 @@ vec2 px_to_vu(ivec2 pos, ivec2 tex_size) {
 		);
 }
 
-vec4 get_palette_color(vec4 color, sampler2D palette, int selection) {
-	ivec2 tex_size = textureSize(team_palette, 0);
-	texture(palette, vec2(3, 4));
-	return color;
+vec4 get_palette_color(vec4 color, sampler2D palette, sampler2D skin_palette) {
+	vec4 context_color = color;
+	ivec2 tex_size = textureSize(palette, 0);
+	ivec2 tex_skin_size = textureSize(skin_palette, 0);
+	for (int i = 0; i < tex_size[0]; i++) {
+		vec2 uv_color_ref = px_to_vu(ivec2(i, 0), tex_size);
+		vec4 color_ref = texture(palette, uv_color_ref);
+		if (color == color_ref){
+			vec2 uv_color_dest = px_to_vu(ivec2(i, team_color), tex_size);
+			context_color = texture(palette, uv_color_dest);
+		}
+	}
+		for (int i = 0; i < tex_skin_size[0]; i++) {
+		vec2 uv_color_ref = px_to_vu(ivec2(i, 0), tex_skin_size);
+		vec4 color_ref = texture(skin_palette, uv_color_ref);
+		if (color == color_ref){
+			vec2 uv_color_dest = px_to_vu(ivec2(i, skin_color), tex_skin_size);
+			context_color = texture(skin_palette, uv_color_dest);
+		}
+	}
+	return context_color;
 }
 
 void fragment() {
-	COLOR = get_palette_color(COLOR, team_palette, team_color);
+	COLOR = get_palette_color(COLOR, team_palette, team_skin_palette);
 }
