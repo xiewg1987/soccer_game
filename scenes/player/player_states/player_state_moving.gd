@@ -1,8 +1,10 @@
 class_name PlayerStateMoving extends PlayerState
 
 func _process(_delta: float) -> void:
-	if player.control_scheme == Player.ControlScheme.CPU: return
-	handle_human_movement()
+	if player.control_scheme == Player.ControlScheme.CPU: 
+		ai_behavior.process_ai()
+	else :
+		handle_human_movement()
 	player.set_movement_animation()
 
 

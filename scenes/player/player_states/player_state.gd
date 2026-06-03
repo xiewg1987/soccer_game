@@ -7,6 +7,7 @@ var ball: Ball
 var own_goal: Goal
 var target_goal: Goal
 var player: Player = null
+var ai_behavior: AIBehavior
 var ball_detection_area: Area2D
 var teammate_detectio_area: Area2D
 var animation_player: AnimationPlayer
@@ -19,6 +20,7 @@ func setup(centext_player: Player, centext_state_data: PlayerStateData) -> void:
 	state_data = centext_state_data
 	own_goal = centext_player.own_goal
 	target_goal = centext_player.target_goal
+	ai_behavior = centext_player.ai_behavior
 	animation_player = centext_player.animation_player
 	ball_detection_area = centext_player.ball_detection_area
 	teammate_detectio_area = centext_player.teammate_detectio_area

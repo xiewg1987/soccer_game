@@ -1,6 +1,7 @@
 class_name ActorsContainer extends Node2D
 
-var PLAYER_PREFAB := preload("res://scenes/player/player.tscn")
+const DURATION_WEIGHT_CACHE := 200
+const PLAYER_PREFAB := preload("res://scenes/player/player.tscn")
 
 @export var ball: Ball
 @export var goal_home: Goal
@@ -11,25 +12,36 @@ var PLAYER_PREFAB := preload("res://scenes/player/player.tscn")
 @onready var spawns: Node2D = %Spawns
 
 
+var squad_home: Array[Player] = []
+var squad_away: Array[Player] = []
+var time_since_last_cache_refresh := Time.get_ticks_msec()
+
 func _ready() -> void:
-	spawn_players(team_home, goal_home)
+	squad_home = spawn_players(team_home, goal_home)
 	spawns.scale.x = -1
-	spawn_players(team_away, goal_away)
-	
+	squad_away = spawn_players(team_away, goal_away)
+	time_since_last_cache_refresh = Time.get_ticks_msec()
 	var player:Player = get_children().filter(func (p): return p as Player)[4]
 	player.control_scheme = Player.ControlScheme.P1
 	player.set_control_sprite()
 
 
-func spawn_players(country: String, own_goal: Goal) -> void:
+func _process(_delta: float) -> void:
+	if Time.get_ticks_msec() - time_since_last_cache_refresh > DURATION_WEIGHT_CACHE:
+		time_since_last_cache_refresh = Time.get_ticks_msec()
+		set_on_duty_weights()
+
+func spawn_players(country: String, own_goal: Goal) -> Array[Player]:
+	var player_nodes: Array[Player] = []
 	var players := DataLoader.get_squad(country)
 	var target_goal := goal_home if own_goal == goal_away else goal_away
 	for i in players.size():
 		var player_position := spawns.get_child(i).global_position as Vector2
 		var player_data := players[i] as PlayerResource
 		var player := spawn_palyer(player_position, ball, own_goal, target_goal, player_data, country)
+		player_nodes.append(player)
 		add_child(player)
-
+	return player_nodes
 
 func spawn_palyer(player_position: Vector2, context_ball: Ball, own_goal: Goal, target_goal: Goal, player_data: PlayerResource, country: String) -> Player:
 	var player = PLAYER_PREFAB.instantiate() as Player
@@ -42,3 +54,17 @@ func spawn_palyer(player_position: Vector2, context_ball: Ball, own_goal: Goal, 
 		"position": player_position,
 	})
 	return player
+
+
+func set_on_duty_weights() -> void:
+	for squad in [squad_home, squad_away]:
+		var cpu_player: Array[Player] = squad.filter(func (p: Player): 
+			return p.control_scheme == Player.ControlScheme.CPU and p.role != Player.Role.GOALIE
+		)
+		cpu_player.sort_custom(func (p1: Player, p2: Player): 
+			var p1_position = p1.spawn_position.distance_squared_to(ball.position)
+			var p2_position = p2.spawn_position.distance_squared_to(ball.position)
+			return p1_position < p2_position
+		)
+		for i in range(cpu_player.size()):
+			cpu_player[i].weight_on_duty_steering = i - ease(float(i) / 10.0, 0.1)

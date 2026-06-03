@@ -59,23 +59,33 @@ var full_name := ""
 var country := "DEFAULT"
 var role := Role.MIDFIELD
 var height_velocity := 0.0
+var weight_on_duty_steering := 0.0
 var skin_color := SkinColor.MEDIUM
 var heading: Vector2 = Vector2.ZERO
 var current_state: PlayerState = null
+var spawn_position: Vector2 = Vector2.ZERO
 var state_factory := PlayerStateFactory.new()
+var ai_behavior: AIBehavior = AIBehavior.new()
 
 
 func _ready() -> void:
 	set_control_sprite()
 	switch_state(State.MOVING)
 	set_shader_properties()
-
+	setup_ai_behavior()
+	spawn_position = position
 
 func _process(delta: float) -> void:
 	file_sprite()
 	move_and_slide()
 	process_gravity(delta)
 	set_sprite_visiblity()
+
+
+func setup_ai_behavior() -> void:
+	ai_behavior.setup(self, ball)
+	ai_behavior.name = "AI Behavior"
+	add_child(ai_behavior)
 
 
 func set_shader_properties() -> void:
