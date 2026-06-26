@@ -1,20 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://bcd3p048hfrjv"]
+[gd_scene load_steps=4 format=3 uid="uid://bcd3p048hfrjv"]
 
 [ext_resource type="PackedScene" uid="uid://b4y1uje7uv303" path="res://scenes/world/backgrounds.tscn" id="1_dphjl"]
 [ext_resource type="PackedScene" uid="uid://ceh545bcq6btq" path="res://scenes/characters/player.tscn" id="2_sl2e5"]
+[ext_resource type="PackedScene" uid="uid://ciktja0anyghy" path="res://scenes/ball/ball.tscn" id="3_1fp7r"]
 
 [node name="World" type="Node2D"]
 
 [node name="Backgrounds" parent="." instance=ExtResource("1_dphjl")]
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="." instance=ExtResource("2_sl2e5")]
+[node name="ActorsContainer" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="ActorsContainer" instance=ExtResource("2_sl2e5")]
 position = Vector2(129, 103)
 control_scheme = 1
 
-[node name="Player2" parent="." instance=ExtResource("2_sl2e5")]
+[node name="Player2" parent="ActorsContainer" instance=ExtResource("2_sl2e5")]
 position = Vector2(202, 87)
 control_scheme = 2
 
-[node name="Player3" parent="." instance=ExtResource("2_sl2e5")]
+[node name="Player3" parent="ActorsContainer" instance=ExtResource("2_sl2e5")]
 position = Vector2(200, 140)
+
+[node name="Ball" parent="ActorsContainer" instance=ExtResource("3_1fp7r")]
+position = Vector2(155, 96)
