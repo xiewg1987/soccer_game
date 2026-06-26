@@ -10,3 +10,11 @@ metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("2_sl2e5")]
 position = Vector2(129, 103)
+control_scheme = 1
+
+[node name="Player2" parent="." instance=ExtResource("2_sl2e5")]
+position = Vector2(202, 87)
+control_scheme = 2
+
+[node name="Player3" parent="." instance=ExtResource("2_sl2e5")]
+position = Vector2(200, 140)
