@@ -2,7 +2,9 @@ class_name Ball extends AnimatableBody2D
 
 enum State {CARRIED, FREEFORM, SHOT}
 
+
 @onready var player_detection_area: Area2D = %PlayerDetectionArea
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 var carrier: Player = null
 var velocity := Vector2.ZERO
