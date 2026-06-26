@@ -10,4 +10,4 @@ func _enter_tree() -> void:
 
 func _process(_delta: float) -> void:
 	if Time.get_ticks_msec() - time_state_tackle > DURATION_TACKLE:
-		emit_state_transition_requested(Player.State.MOVING)
+		emit_state_transition_requested(Player.State.RECOVERING)
