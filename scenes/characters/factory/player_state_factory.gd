@@ -5,8 +5,10 @@ var states: Dictionary
 func _init() -> void:
 	states = {
 		Player.State.MOVING: PlayerStateMoving,
+		Player.State.SHOTING: PlayerStateShoting,
 		Player.State.TACKLING: PlayerStateTackling,
-		Player.State.RECOVERING: PlayerStateRecovering
+		Player.State.RECOVERING: PlayerStateRecovering,
+		Player.State.PREPPING_SHOT: PlayerStatePreppingShot,
 	}
 
 func get_fresh_state(state: Player.State) -> PlayerState:
